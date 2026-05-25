@@ -170,10 +170,18 @@
         }
 
         /* halaman kedua */
+        /* halaman kedua */
         .halaman2 {
             margin: 0;
             background: white;
             display: none;
+            /* Tambahan animasi fade in agar halus saat muncul di HP */
+            animation: fadeInSaja 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeInSaja {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .hero-wedding {
@@ -1407,7 +1415,7 @@
 
         <div class="content animasi-bawah">
             <div class="wedd">
-                <h4>The Wedding Of</h4>
+                <h4>The Wedding Of c1</h4>
                 <h1>Nila & Arief</h1>
             </div>
 
@@ -1447,7 +1455,7 @@
             <div class="hero-content">
 
                     <p class="text-atas">
-                        THE WEDDING OF C1
+                        THE WEDDING OF
                     </p>
 
                     <div class="frame-foto">
@@ -2058,33 +2066,20 @@ ${kehadiran}`;
     const heroSection = document.querySelector(".hero");
     const undanganSection = document.getElementById("undangan");
 
-    // 1. Tampilkan halaman kedua terlebih dahulu
-    undanganSection.style.display = "block";
-
-    // 2. Buat halaman pertama memudar halus (efek fade out)
-    if (heroSection) {
-        heroSection.style.transition = "opacity 0.5s ease-out";
-        heroSection.style.opacity = "0";
-        heroSection.style.pointerEvents = "none"; // Agar tidak bisa diklik lagi saat transparan
+    // 1. Tampilkan halaman kedua secara instan
+    if (undanganSection) {
+        undanganSection.style.display = "block";
     }
 
-    // 3. Gulir layar ke halaman kedua secara instan/mulus tanpa membuat browser HP kaget
-    window.scrollTo({
-        top: undanganSection.offsetTop,
-        behavior: "auto" // Menggunakan 'auto' (instan) terbukti paling aman dari efek membal/loncat di HP
-    });
+    // 2. Langsung hilangkan halaman pertama secara instan agar tinggi halaman stabil
+    if (heroSection) {
+        heroSection.style.display = "none";
+    }
 
-    // 4. Setelah transparan selesai (500ms), kunci halaman pertama agar benar-benar hilang
-    setTimeout(() => {
-        if (heroSection) {
-            heroSection.style.position = "absolute";
-            heroSection.style.visibility = "hidden";
-            heroSection.style.height = "0";
-            heroSection.style.minHeight = "0";
-        }
-        // Pastikan posisi layar tetap pas berada di paling atas halaman kedua
-        window.scrollTo(0, 0);
-    }, 500);
+    // 3. Paksa browser (terutama HP) untuk mereset posisi layar tepat di koordinat 0 (paling atas)
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 }
 
         const targetDate = new Date("Jun 04, 2026 00:00:00").getTime();
