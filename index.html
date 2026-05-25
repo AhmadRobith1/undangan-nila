@@ -2055,25 +2055,31 @@ ${kehadiran}`;
     <script>
 
         function bukaUndangan() {
+    const heroSection = document.querySelector(".hero");
+    const undanganSection = document.getElementById("undangan");
 
-            // tampilkan halaman kedua
-            document.getElementById("undangan").style.display = "block";
+    // 1. Tampilkan halaman kedua terlebih dahulu agar ukurannya terbaca browser
+    undanganSection.style.display = "block";
 
-            // scroll ke halaman kedua
-            document
-                .getElementById("undangan")
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
+    // 2. Beri efek transisi halus pada halaman pertama saat menghilang
+    heroSection.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+    heroSection.style.opacity = "0";
+    heroSection.style.transform = "translateY(-100vh)"; // Efek terangkat ke atas
 
-            // hilangkan halaman pertama
-            setTimeout(() => {
+    // 3. Scroll dengan mulus tepat ke awal halaman kedua
+    undanganSection.scrollIntoView({
+        behavior: "smooth"
+    });
 
-                document.querySelector(".hero").remove();
-
-            }, 700);
-
-        }
+    // 4. Setelah animasi scroll & transisi selesai (sekitar 600ms), 
+    // hilangkan halaman pertama sepenuhnya agar mentok dan tidak bisa di-scroll ke atas lagi
+    setTimeout(() => {
+        heroSection.style.display = "none";
+        
+        // Memastikan posisi layar tetap pas di paling atas halaman kedua setelah halaman pertama hilang
+        window.scrollTo(0, 0); 
+    }, 600);
+}
 
         const targetDate = new Date("Jun 04, 2026 00:00:00").getTime();
 
