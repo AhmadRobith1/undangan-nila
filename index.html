@@ -1447,7 +1447,7 @@
             <div class="hero-content">
 
                     <p class="text-atas">
-                        THE WEDDING OF
+                        THE WEDDING OF C1
                     </p>
 
                     <div class="frame-foto">
@@ -2058,23 +2058,32 @@ ${kehadiran}`;
     const heroSection = document.querySelector(".hero");
     const undanganSection = document.getElementById("undangan");
 
-    // 1. Tampilkan halaman kedua
+    // 1. Tampilkan halaman kedua terlebih dahulu
     undanganSection.style.display = "block";
 
-    // 2. Beri transisi memudar pada halaman pertama
-    heroSection.style.transition = "opacity 0.4s ease";
-    heroSection.style.opacity = "0";
+    // 2. Buat halaman pertama memudar halus (efek fade out)
+    if (heroSection) {
+        heroSection.style.transition = "opacity 0.5s ease-out";
+        heroSection.style.opacity = "0";
+        heroSection.style.pointerEvents = "none"; // Agar tidak bisa diklik lagi saat transparan
+    }
 
-    // 3. Paksa layar untuk langsung diam/pindah tepat di posisi atas halaman kedua (tanpa loncat)
+    // 3. Gulir layar ke halaman kedua secara instan/mulus tanpa membuat browser HP kaget
     window.scrollTo({
         top: undanganSection.offsetTop,
-        behavior: "smooth"
+        behavior: "auto" // Menggunakan 'auto' (instan) terbukti paling aman dari efek membal/loncat di HP
     });
 
-    // 4. Setelah scroll selesai, hilangkan halaman pertama secara permanen
+    // 4. Setelah transparan selesai (500ms), kunci halaman pertama agar benar-benar hilang
     setTimeout(() => {
-        heroSection.style.display = "none";
-        window.scrollTo(0, 0); // Kunci layar di paling atas halaman kedua
+        if (heroSection) {
+            heroSection.style.position = "absolute";
+            heroSection.style.visibility = "hidden";
+            heroSection.style.height = "0";
+            heroSection.style.minHeight = "0";
+        }
+        // Pastikan posisi layar tetap pas berada di paling atas halaman kedua
+        window.scrollTo(0, 0);
     }, 500);
 }
 
