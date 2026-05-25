@@ -869,19 +869,37 @@
     justify-content: center;
     gap: 15px;
     margin: 35px 0;
-    font-size: 28px;
-    text-shadow:
-        1px 1px 2px rgba(0, 0, 0, 0.6),
-        0 0 5px rgba(255, 215, 0, 0.5);
 }
 
-/* Tambahkan class ini agar warnanya dipaksa putih di HP */
-.heart-icon {
-    color: white !important;
-    line-height: 1;
+/* KODE PASTI: Membuat bentuk Love murni dari CSS (Anti-Emoji HP) */
+.love-css {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff !important; /* Warna Putih */
+    transform: rotate(45deg);
+    margin: 0 10px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+.love-css::before,
+.love-css::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff !important; /* Warna Putih */
+    border-radius: 50%;
+}
+.love-css::before {
+    top: -9px;
+    left: 0;
+}
+.love-css::after {
+    left: -9px;
+    top: 0;
 }
 
-.love-line span:not(.heart-icon) {
+.love-line span {
     width: 90px;
     height: 2px;
     background: white;
@@ -1415,7 +1433,7 @@
 
         <div class="content animasi-bawah">
             <div class="wedd">
-                <h4>The Wedding Of c1</h4>
+                <h4>The Wedding Of c2</h4>
                 <h1>Nila & Arief</h1>
             </div>
 
@@ -1780,7 +1798,7 @@
 
                     <div class="love-line">
     <span></span>
-    <span class="heart-icon">&#9829;</span>
+    <div class="love-css"></div>
     <span></span>
 </div>
 
@@ -1801,7 +1819,7 @@
 
                     <div class="love-line">
     <span></span>
-    <span class="heart-icon">&#9829;</span>
+    <div class="love-css"></div>
     <span></span>
 </div>
 
