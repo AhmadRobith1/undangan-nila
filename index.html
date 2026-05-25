@@ -856,29 +856,32 @@
         }
 
         .love-line {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 35px 0;
+    font-size: 28px;
+    text-shadow:
+        1px 1px 2px rgba(0, 0, 0, 0.6),
+        0 0 5px rgba(255, 215, 0, 0.5);
+}
 
-            gap: 15px;
+/* Tambahkan class ini agar warnanya dipaksa putih di HP */
+.heart-icon {
+    color: white !important;
+    line-height: 1;
+}
 
-            margin: 35px 0;
-
-            font-size: 28px;
-            text-shadow:
-                1px 1px 2px rgba(0, 0, 0, 0.6),
-                0 0 5px rgba(255, 215, 0, 0.5);
-        }
-
-        .love-line span {
-            width: 90px;
-            height: 2px;
-            background: white;
-            display: block;
-            box-shadow:
-                1px 1px 2px rgba(0, 0, 0, 0.6),
-                0 0 5px rgba(255, 215, 0, 0.5);
-        }
+.love-line span:not(.heart-icon) {
+    width: 90px;
+    height: 2px;
+    background: white;
+    display: block;
+    box-shadow:
+        1px 1px 2px rgba(0, 0, 0, 0.6),
+        0 0 5px rgba(255, 215, 0, 0.5);
+}
 
         .gift-icon img {
             width: 50px;
@@ -1442,7 +1445,6 @@
 
             <div class="overlay-hero"></div>
             <div class="hero-content">
-                <div class="animasi-bawah">
 
                     <p class="text-atas">
                         THE WEDDING OF
@@ -1461,8 +1463,6 @@
                     <p class="tanggal-acara">
                         KAMIS, 04 JUNI 2026
                     </p>
-
-                </div>
             </div>
 
         </section>
@@ -1771,10 +1771,10 @@
                     </div>
 
                     <div class="love-line">
-                        <span></span>
-                        <i class="fa fa-heart" style="color: white;"></i>
-                        <span></span>
-                    </div>
+    <span></span>
+    <span class="heart-icon">&#9829;</span>
+    <span></span>
+</div>
 
                     <!-- BANK 2 -->
                     <div class="rekening-box">
@@ -1792,10 +1792,10 @@
                     </div>
 
                     <div class="love-line">
-                        <span></span>
-                        ❤
-                        <span></span>
-                    </div>
+    <span></span>
+    <span class="heart-icon">&#9829;</span>
+    <span></span>
+</div>
 
                     <!-- ALAMAT -->
                     <div class="gift-icon">
@@ -2058,27 +2058,24 @@ ${kehadiran}`;
     const heroSection = document.querySelector(".hero");
     const undanganSection = document.getElementById("undangan");
 
-    // 1. Tampilkan halaman kedua terlebih dahulu agar ukurannya terbaca browser
+    // 1. Tampilkan halaman kedua
     undanganSection.style.display = "block";
 
-    // 2. Beri efek transisi halus pada halaman pertama saat menghilang
-    heroSection.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+    // 2. Beri transisi memudar pada halaman pertama
+    heroSection.style.transition = "opacity 0.4s ease";
     heroSection.style.opacity = "0";
-    heroSection.style.transform = "translateY(-100vh)"; // Efek terangkat ke atas
 
-    // 3. Scroll dengan mulus tepat ke awal halaman kedua
-    undanganSection.scrollIntoView({
+    // 3. Paksa layar untuk langsung diam/pindah tepat di posisi atas halaman kedua (tanpa loncat)
+    window.scrollTo({
+        top: undanganSection.offsetTop,
         behavior: "smooth"
     });
 
-    // 4. Setelah animasi scroll & transisi selesai (sekitar 600ms), 
-    // hilangkan halaman pertama sepenuhnya agar mentok dan tidak bisa di-scroll ke atas lagi
+    // 4. Setelah scroll selesai, hilangkan halaman pertama secara permanen
     setTimeout(() => {
         heroSection.style.display = "none";
-        
-        // Memastikan posisi layar tetap pas di paling atas halaman kedua setelah halaman pertama hilang
-        window.scrollTo(0, 0); 
-    }, 600);
+        window.scrollTo(0, 0); // Kunci layar di paling atas halaman kedua
+    }, 500);
 }
 
         const targetDate = new Date("Jun 04, 2026 00:00:00").getTime();
